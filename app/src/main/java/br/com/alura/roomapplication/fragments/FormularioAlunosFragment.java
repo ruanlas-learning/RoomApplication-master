@@ -10,6 +10,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import java.io.Serializable;
+
 import br.com.alura.roomapplication.AlunosDelegate;
 import br.com.alura.roomapplication.R;
 import br.com.alura.roomapplication.database.AlunoDao;
@@ -51,18 +53,33 @@ public class FormularioAlunosFragment extends Fragment {
                 AluraDatabase aluraDatabase = gerador.gera(getContext());
                 AlunoDao alunoDao = aluraDatabase.getAlunoDao();
 
-                alunoDao.insere(aluno);
+                if (aluno.getId() == null){
+                    alunoDao.insere(aluno);
+                }else {
+                    alunoDao.altera(aluno);
+                }
 
                 Toast.makeText(getContext(), "Aluno salvo!", Toast.LENGTH_SHORT).show();
                 delegate.voltaParaTelaAnterior();
             }
         });
 
+        Bundle arguments = getArguments();
+        if (arguments != null){
+            aluno = (Aluno) arguments.getSerializable("aluno");
+            EditText campoNome = view.findViewById(R.id.formulario_alunos_nome);
+            EditText campoEmail = view.findViewById(R.id.formulario_alunos_email);
+            campoEmail.setText(aluno.getEmail());
+            campoNome.setText(aluno.getNome());
+        }
+
         return view;
     }
 
     private void atualizaInformacoesDoAluno() {
-        aluno = new Aluno();
+        if (aluno == null){
+            aluno = new Aluno();
+        }
         EditText campoNome = getView().findViewById(R.id.formulario_alunos_nome);
         EditText campoEmail = getView().findViewById(R.id.formulario_alunos_email);
         aluno.setEmail(campoEmail.getText().toString());

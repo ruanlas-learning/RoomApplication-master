@@ -11,6 +11,7 @@ import br.com.alura.roomapplication.AlunosDelegate;
 import br.com.alura.roomapplication.R;
 import br.com.alura.roomapplication.fragments.FormularioAlunosFragment;
 import br.com.alura.roomapplication.fragments.ListaAlunosFragment;
+import br.com.alura.roomapplication.models.Aluno;
 
 
 public class AlunosActivity extends AppCompatActivity implements AlunosDelegate {
@@ -47,5 +48,16 @@ public class AlunosActivity extends AppCompatActivity implements AlunosDelegate 
     @Override
     public void alteraNomeDoToolbar(String nome) {
         setTitle(nome);
+    }
+
+    @Override
+    public void lidaComAlunoSelecionado(Aluno aluno) {
+        FormularioAlunosFragment formularioAlunosFragment = new FormularioAlunosFragment();
+
+        Bundle argumentos = new Bundle();
+        argumentos.putSerializable("aluno", aluno);
+        formularioAlunosFragment.setArguments(argumentos);
+
+        exibeFragment(formularioAlunosFragment,true);
     }
 }

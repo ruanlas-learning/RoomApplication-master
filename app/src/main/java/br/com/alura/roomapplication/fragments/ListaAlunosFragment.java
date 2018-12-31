@@ -3,10 +3,12 @@ package br.com.alura.roomapplication.fragments;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListAdapter;
 import android.widget.ListView;
@@ -69,11 +71,39 @@ public class ListaAlunosFragment extends Fragment {
 
         GeradorDeBancoDeDados gerador = new GeradorDeBancoDeDados();
         AluraDatabase aluraDatabase = gerador.gera(getContext());
-        AlunoDao alunoDao = aluraDatabase.getAlunoDao();
+        final AlunoDao alunoDao = aluraDatabase.getAlunoDao();
 
         List<Aluno> listAlunos = alunoDao.buscaTodos();
-        ArrayAdapter<Aluno> adapter = new ArrayAdapter<Aluno>(getContext(), android.R.layout.simple_list_item_1, listAlunos);
+        final ArrayAdapter<Aluno> adapter = new ArrayAdapter<Aluno>(getContext(), android.R.layout.simple_list_item_1, listAlunos);
         fragmentLista.setAdapter(adapter);
+
+        fragmentLista.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> listaAdapter, View view, int posicao, long id) {
+                Aluno aluno = (Aluno) listaAdapter.getItemAtPosition(posicao);
+                delegate.lidaComAlunoSelecionado(aluno);
+            }
+        });
+
+        fragmentLista.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> adapterLista, View view, int posicao, long id) {
+                final Aluno aluno = (Aluno) adapterLista.getItemAtPosition(posicao);
+                Snackbar.make(view, "Excluir o aluno " + aluno.getNome() + " ? ", Snackbar.LENGTH_LONG)
+                        .setAction("Sim", new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                alunoDao.deleta(aluno);
+                                adapter.remove(aluno);
+//                                adapter.notifyDataSetChanged();
+                            }
+                        })
+                        .show();
+
+
+                return true; // somente este método irá tratar/resolver o evento de clique longo, portanto, retornará true
+            }
+        });
     }
 
 

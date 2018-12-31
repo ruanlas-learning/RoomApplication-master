@@ -3,8 +3,10 @@ package br.com.alura.roomapplication.models;
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.PrimaryKey;
 
+import java.io.Serializable;
+
 @Entity(tableName = "aluno")
-public class Aluno {
+public class Aluno implements Serializable {
 
     @PrimaryKey(autoGenerate = true)
     private Long id;
@@ -40,6 +42,7 @@ public class Aluno {
 
     @Override
     public String toString() {
-        return id + " - " + nome;
+//        return id + " - " + nome;
+        return nome;
     }
 }
