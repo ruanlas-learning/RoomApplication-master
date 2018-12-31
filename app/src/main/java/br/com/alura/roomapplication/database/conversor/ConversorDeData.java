@@ -25,7 +25,7 @@ public class ConversorDeData {
     }
 
     @TypeConverter
-    public static Calendar convert(Long timestamp){ // tempo em milissegundos
+    public static Calendar converte(Long timestamp){ // tempo em milissegundos
         if (timestamp != null){
             Calendar calendar = Calendar.getInstance();
             Date date = new Date();
