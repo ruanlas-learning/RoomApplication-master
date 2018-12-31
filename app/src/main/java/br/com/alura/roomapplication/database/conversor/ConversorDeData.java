@@ -1,6 +1,8 @@
 package br.com.alura.roomapplication.database.conversor;
 
 import android.arch.persistence.room.TypeConverter;
+import android.content.Context;
+import android.widget.Toast;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -23,7 +25,7 @@ public class ConversorDeData {
     }
 
     @TypeConverter
-    public static Calendar converte(Long timestamp){ // tempo em milissegundos
+    public static Calendar convert(Long timestamp){ // tempo em milissegundos
         if (timestamp != null){
             Calendar calendar = Calendar.getInstance();
             Date date = new Date();
@@ -42,6 +44,7 @@ public class ConversorDeData {
                 Date date = format.parse(stringData);
                 Calendar calendar = Calendar.getInstance();
                 calendar.setTime(date);
+                return calendar;
             } catch (ParseException e) {
                 e.printStackTrace();
 //                return null;
