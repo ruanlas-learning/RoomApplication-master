@@ -18,23 +18,7 @@
 
     </android.support.design.widget.TextInputLayout>
 
-
     <android.support.design.widget.TextInputLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <EditText
-            android:id="@+id/formulario_alunos_nascimento"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="@string/formulario_aluno_nascimento"
-            android:inputType="date" />
-
-    </android.support.design.widget.TextInputLayout>
-
-
-    <android.support.design.widget.TextInputLayout
-        android:visibility="gone"                                              
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
@@ -44,6 +28,20 @@
             android:layout_height="wrap_content"
             android:hint="@string/formulario_aluno_email"
             android:inputType="textEmailAddress" />
+
+    </android.support.design.widget.TextInputLayout>
+
+    <android.support.design.widget.TextInputLayout
+        android:visibility="gone"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <EditText
+            android:id="@+id/formulario_alunos_nascimento"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/formulario_aluno_nascimento"
+            android:inputType="date" />
 
     </android.support.design.widget.TextInputLayout>
 
