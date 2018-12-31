@@ -12,6 +12,9 @@ import android.widget.Toast;
 
 import br.com.alura.roomapplication.AlunosDelegate;
 import br.com.alura.roomapplication.R;
+import br.com.alura.roomapplication.database.AlunoDao;
+import br.com.alura.roomapplication.database.AluraDatabase;
+import br.com.alura.roomapplication.database.GeradorDeBancoDeDados;
 import br.com.alura.roomapplication.models.Aluno;
 
 public class FormularioAlunosFragment extends Fragment {
@@ -44,7 +47,13 @@ public class FormularioAlunosFragment extends Fragment {
             public void onClick(View view) {
                 atualizaInformacoesDoAluno();
 
-                Toast.makeText(getContext(), aluno.getNome(), Toast.LENGTH_SHORT).show();
+                GeradorDeBancoDeDados gerador = new GeradorDeBancoDeDados();
+                AluraDatabase aluraDatabase = gerador.gera(getContext());
+                AlunoDao alunoDao = aluraDatabase.getAlunoDao();
+
+                alunoDao.insere(aluno);
+
+                Toast.makeText(getContext(), "Aluno salvo!", Toast.LENGTH_SHORT).show();
                 delegate.voltaParaTelaAnterior();
             }
         });
