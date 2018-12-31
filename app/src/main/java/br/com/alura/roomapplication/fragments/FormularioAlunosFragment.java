@@ -10,11 +10,9 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import java.io.Serializable;
-
 import br.com.alura.roomapplication.AlunosDelegate;
 import br.com.alura.roomapplication.R;
-import br.com.alura.roomapplication.database.AlunoDao;
+import br.com.alura.roomapplication.database.daos.AlunoDao;
 import br.com.alura.roomapplication.database.AluraDatabase;
 import br.com.alura.roomapplication.database.GeradorDeBancoDeDados;
 import br.com.alura.roomapplication.models.Aluno;

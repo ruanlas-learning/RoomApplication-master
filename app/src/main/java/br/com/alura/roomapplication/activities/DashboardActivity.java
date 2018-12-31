@@ -23,5 +23,14 @@ public class DashboardActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+        Button adicionarProvas = findViewById(R.id.dash_btn_provas);
+        adicionarProvas.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(DashboardActivity.this, ProvasActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 }
